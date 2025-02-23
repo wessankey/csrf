@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for csrf on 2025-02-23T19:24:39Z
+# fly.toml app configuration file generated for westonsankey-csrf-app-b on 2025-02-23T19:33:22Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'csrf'
+app = 'westonsankey-csrf-app-b'
 primary_region = 'atl'
 
 [build]
