@@ -7,7 +7,10 @@ const app = new Hono();
 app.use(
   "/*",
   cors({
-    origin: ["http://localhost:5173", "https://csrf-app-b.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://westonsankey-csrf-app-b.fly.dev/",
+    ],
     allowMethods: ["POST"],
     credentials: true,
   })

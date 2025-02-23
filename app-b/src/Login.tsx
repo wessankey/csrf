@@ -10,7 +10,7 @@ export const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/api/login", {
+    fetch("https://westonsankey-csrf-service-b.fly.dev/api/login", {
       method: "POST",
       body: JSON.stringify({ email: "wes@gmail.com", password: "test" }),
       headers: {
