@@ -28,7 +28,7 @@ const app = new Hono();
 app.use(
   "/*",
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://csrf-app-a.vercel.app"],
     allowMethods: ["POST"],
     credentials: true,
   })
