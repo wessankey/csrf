@@ -17,7 +17,7 @@ primary_region = 'iad'
   processes = ['app']
 
 [env]
-  MY_VARIABLE = "my_value"
+  VITE_API_ENDPOINT = "https://westonsankey-csrf-service-b.fly.dev"
 
 [[vm]]
   memory = '1gb'
