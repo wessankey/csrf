@@ -1,101 +1,155 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useRef, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export interface Comment {
+  id: number;
+  author: string;
+  content: string;
+  timestamp: string;
+}
+
+export default function CommentPage() {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    fetch("http://localhost:3000/api/comments")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setComments(data);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleAddComment = (newComment: Omit<Comment, "id" | "timestamp">) => {
+    const comment: Comment = {
+      ...newComment,
+      id: Date.now(),
+      timestamp: new Date().toISOString(),
+    };
+
+    fetch("http://localhost:3000/api/comments", {
+      method: "POST",
+      body: JSON.stringify(comment),
+    });
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="flex flex-col items-center w-full pt-10 mb-10">
+      <h1 className="text-3xl font-bold mb-6">Comments</h1>
+      <div className="space-y-6 w-[700px]">
+        <CommentForm onSubmit={handleAddComment} />
+        <CommentList comments={comments} />
+      </div>
     </div>
   );
 }
+
+interface CommentListProps {
+  comments: Comment[];
+}
+
+function CommentList({ comments }: CommentListProps) {
+  const sortedComments = comments.sort((a, b) => {
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+  });
+
+  return (
+    <div className="space-y-4 w-[700px]">
+      {sortedComments.map((comment) => (
+        <Card key={comment.id}>
+          <CardHeader>
+            <CardTitle>{comment.author}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {comment.content.indexOf("script") !== -1 ? (
+              <>
+                <p>{comment.content}</p>
+                <ScriptComponent scriptContent={comment.content} />
+              </>
+            ) : (
+              <p>{comment.content}</p>
+            )}
+            <p className="text-sm text-gray-500 mt-2">
+              {new Date(comment.timestamp).toLocaleString()}
+            </p>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+interface CommentFormProps {
+  onSubmit: (comment: { author: string; content: string }) => void;
+}
+
+function CommentForm({ onSubmit }: CommentFormProps) {
+  const [author, setAuthor] = useState("");
+  const [content, setContent] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (author.trim() && content.trim()) {
+      onSubmit({ author, content });
+      setAuthor("");
+      setContent("");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <Input
+        type="text"
+        placeholder="Your name"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        required
+      />
+      <Textarea
+        placeholder="Write your comment here..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        required
+      />
+      <Button className="bg-indigo-600 hover:bg-indigo-700" type="submit">
+        Submit Comment
+      </Button>
+    </form>
+  );
+}
+
+const ScriptComponent = ({ scriptContent }: { scriptContent: string }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const script = document.createElement("script");
+      script.text = scriptContent
+        .replace("<script>", "")
+        .replace("</script>", "");
+      containerRef.current.appendChild(script);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
+      }
+    };
+  }, [scriptContent]);
+
+  return <div ref={containerRef} />;
+};
