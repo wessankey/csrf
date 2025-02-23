@@ -1,10 +1,10 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { addComment, getComments } from "./api/comments";
 
 export interface Comment {
   id: number;
@@ -13,34 +13,29 @@ export interface Comment {
   timestamp: string;
 }
 
-export default function CommentPage() {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function CommentPage() {
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    setIsLoading(true);
+  const { data: comments, isLoading } = useQuery({
+    queryKey: ["comments"],
+    queryFn: getComments,
+  });
 
-    fetch("http://localhost:3000/api/comments")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setComments(data);
-        setIsLoading(false);
-      });
-  }, []);
+  const { mutate: addCommentMutation } = useMutation({
+    mutationFn: addComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    },
+  });
 
-  const handleAddComment = (newComment: Omit<Comment, "id" | "timestamp">) => {
+  const onAddComment = (newComment: Omit<Comment, "id" | "timestamp">) => {
     const comment: Comment = {
       ...newComment,
       id: Date.now(),
       timestamp: new Date().toISOString(),
     };
 
-    fetch("http://localhost:3000/api/comments", {
-      method: "POST",
-      body: JSON.stringify(comment),
-    });
+    addCommentMutation(comment);
   };
 
   if (isLoading) {
@@ -51,7 +46,7 @@ export default function CommentPage() {
     <div className="flex flex-col items-center w-full pt-10 mb-10">
       <h1 className="text-3xl font-bold mb-6">Comments</h1>
       <div className="space-y-6 w-[700px]">
-        <CommentForm onSubmit={handleAddComment} />
+        <CommentForm onSubmit={onAddComment} />
         <CommentList comments={comments} />
       </div>
     </div>
@@ -63,6 +58,7 @@ interface CommentListProps {
 }
 
 function CommentList({ comments }: CommentListProps) {
+  // sort comments by timestamp
   const sortedComments = comments.sort((a, b) => {
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
   });
