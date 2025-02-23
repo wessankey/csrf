@@ -32,7 +32,7 @@ app.use(
       "http://localhost:5173",
       "https://westonsankey-csrf-app-a.fly.dev",
     ],
-    allowMethods: ["POST"],
+    allowMethods: ["POST", "GET"],
     credentials: true,
   })
 );
