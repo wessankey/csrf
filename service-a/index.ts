@@ -60,6 +60,6 @@ const port = 3000;
 console.log(`Server running at http://localhost:${port}`);
 
 export default {
-  port: 3000,
+  port: 8080,
   fetch: app.fetch,
 };
