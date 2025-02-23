@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -10,10 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PaymentInput } from "../components/paymentInput";
 import { useState } from "react";
+import { PaymentInput } from "./components/PaymentInput";
 
-export default function Dashboard() {
+export const PaymentPage = () => {
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
 
@@ -66,4 +64,4 @@ export default function Dashboard() {
       </Card>
     </main>
   );
-}
+};
