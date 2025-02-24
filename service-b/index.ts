@@ -17,7 +17,10 @@ app.use(
 );
 
 app.post("/api/login", async (c) => {
-  setCookie(c, "sessionId", "123", { httpOnly: true });
+  setCookie(c, "sessionId", "123", {
+    httpOnly: true,
+    domain: ".westonsankey-csrf-app-b.fly.dev",
+  });
   return c.json({ message: "Login successful" }, 200);
 });
 
