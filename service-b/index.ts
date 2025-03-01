@@ -5,7 +5,7 @@ import { cors } from "hono/cors";
 const app = new Hono();
 
 app.use(
-  "/*",
+  "*",
   cors({
     origin: [
       "http://localhost:5173",
@@ -13,15 +13,17 @@ app.use(
     ],
     allowMethods: ["POST"],
     credentials: true,
+    allowHeaders: ["Content-Type", "Authorization"],
   })
 );
 
 app.post("/api/login", async (c) => {
   setCookie(c, "sessionId", "123", {
     httpOnly: true,
-    domain: "westonsankey-csrf-service-b.fly.dev",
-    sameSite: "none",
-    secure: true,
+    path: "/",
+    // domain: "westonsankey-csrf-service-b.fly.dev",
+    // sameSite: "None",
+    // secure: false,
   });
   return c.json({ message: "Login successful" }, 200);
 });
