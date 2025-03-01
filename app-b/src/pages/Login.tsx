@@ -17,7 +17,18 @@ export const LoginPage = () => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-    }).then(() => navigate("/payment"));
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error("Login failed");
+        }
+        return response.json();
+      })
+      .then(() => navigate("/payment"))
+      .catch((error) => {
+        console.error("Login error:", error);
+        // Handle error appropriately
+      });
   };
 
   return (

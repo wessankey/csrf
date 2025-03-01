@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { PaymentInput } from "./components/PaymentInput";
+import { PaymentInput } from "../components/PaymentInput";
 
 export const PaymentPage = () => {
   const [amount, setAmount] = useState("");
@@ -17,7 +17,9 @@ export const PaymentPage = () => {
 
   const handleSubmit = () => {
     fetch(
-      `https://westonsankey-csrf-service-b.fly.dev/api/pay?amount=${amount}&recipient=${recipient}`,
+      `${
+        import.meta.env.VITE_API_ENDPOINT
+      }/api/pay?amount=${amount}&recipient=${recipient}`,
       {
         method: "GET",
       }

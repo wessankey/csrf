@@ -26,8 +26,8 @@ app.post("/api/login", async (c) => {
   return c.json({ message: "Login successful" }, 200);
 });
 
-const port = 8080;
-console.log(`Server running at http://localhost:${port}`);
+const port = 3001;
+console.log(`Server running on port ${port}`);
 
 export default {
   port,

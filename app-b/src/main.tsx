@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { LoginPage } from "./Login.tsx";
+import { LoginPage } from "./pages/Login.tsx";
+import { PaymentPage } from "./pages/Pay.tsx";
 import "./index.css";
-import { PaymentPage } from "./Pay.tsx";
 
 const queryClient = new QueryClient();
 

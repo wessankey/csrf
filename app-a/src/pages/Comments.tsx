@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { addComment, getComments } from "./api/comments";
+import { addComment, getComments } from "../api/comments";
 
 export interface Comment {
   id: number;

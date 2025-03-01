@@ -38,7 +38,14 @@ app.use(
 );
 
 app.post("/api/login", async (c) => {
-  setCookie(c, "sessionId", "123", { httpOnly: true });
+  setCookie(c, "sessionId", "123", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "none",
+    path: "/",
+    domain: "localhost",
+    maxAge: 60 * 60 * 24,
+  });
   return c.json({ message: "Login successful" }, 200);
 });
 
@@ -60,9 +67,9 @@ app.post("/api/comments", async (c) => {
 });
 
 const port = 3000;
-console.log(`Server running at http://localhost:${port}`);
+console.log(`Server running on port ${port}`);
 
 export default {
-  port: 8080,
+  port,
   fetch: app.fetch,
 };
