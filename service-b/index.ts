@@ -23,7 +23,6 @@ app.post("/api/login", async (c) => {
     path: "/",
     sameSite: "none",
     secure: true,
-    // domain: "westonsankey-csrf-service-b.fly.dev",
   });
   return c.json({ message: "Login successful" }, 200);
 });
