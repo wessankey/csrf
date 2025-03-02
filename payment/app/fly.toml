@@ -1,4 +1,9 @@
-app = 'westonsankey-payment-app'
+# fly.toml app configuration file generated for csrf on 2025-03-02T23:11:14Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'csrf'
 primary_region = 'iad'
 
 [build]
@@ -6,13 +11,10 @@ primary_region = 'iad'
 [http_service]
   internal_port = 80
   force_https = true
-  auto_stop_machines = 'off'
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
-
-[env]
-  VITE_API_ENDPOINT = "https://westonsankey-payment-service.fly.dev"
 
 [[vm]]
   memory = '1gb'
