@@ -7,8 +7,9 @@ app = 'westonsankey-csrf-app-a'
 primary_region = 'atl'
 
 [build]
-  [build.args]
-    API_ENDPOINT = "https://westonsankey-csrf-service-a.fly.dev"
+
+[build.args]
+  API_ENDPOINT = "https://westonsankey-csrf-service-a.fly.dev"
 
 [http_service]
   internal_port = 80
