@@ -19,6 +19,7 @@ export const PaymentPage = () => {
     fetch(
       `https://westonsankey-csrf-service-b.fly.dev/api/pay?amount=${amount}&recipient=${recipient}`,
       {
+        credentials: "include",
         method: "GET",
       }
     )
