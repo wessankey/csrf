@@ -15,6 +15,7 @@ export interface Comment {
 
 export function CommentPage() {
   console.log(`Endpoint: ${import.meta.env.VITE_API_ENDPOINT}`);
+  console.log(`Endpoint: ${process.env.VITE_API_ENDPOINT}`);
   return <div>comments</div>;
   // const queryClient = useQueryClient();
 
