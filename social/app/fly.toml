@@ -1,9 +1,4 @@
-# fly.toml app configuration file generated for westonsankey-csrf-app-a on 2025-02-23T18:53:28Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'westonsankey-csrf-app-a'
+app = 'westonsankey-payment-app'
 primary_region = 'atl'
 
 [build]
