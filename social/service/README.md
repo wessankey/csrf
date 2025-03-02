@@ -1,4 +1,4 @@
-# service-b
+# social-service
 
 To install dependencies:
 

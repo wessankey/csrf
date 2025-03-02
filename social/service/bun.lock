@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "service-a",
+      "name": "social-service",
       "dependencies": {
         "hono": "^4.7.2",
       },

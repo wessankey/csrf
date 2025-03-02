@@ -17,7 +17,9 @@ export const PaymentPage = () => {
 
   const handleSubmit = () => {
     fetch(
-      `https://westonsankey-csrf-service-b.fly.dev/api/pay?amount=${amount}&recipient=${recipient}`,
+      `${
+        import.meta.env.VITE_API_ENDPOINT
+      }/api/pay?amount=${amount}&recipient=${recipient}`,
       {
         credentials: "include",
         method: "GET",

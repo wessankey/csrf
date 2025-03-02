@@ -1,4 +1,4 @@
-# service-a
+# payment-service
 
 To install dependencies:
 

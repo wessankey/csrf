@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "service-b",
+      "name": "payment-service",
       "dependencies": {
         "hono": "^4.7.2",
       },

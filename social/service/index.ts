@@ -30,7 +30,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://westonsankey-csrf-app-a.fly.dev",
+      "https://westonsankey-csrf-social-app.fly.dev",
     ],
     allowMethods: ["POST", "GET"],
     credentials: true,

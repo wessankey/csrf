@@ -1,5 +1,5 @@
 {
-  "name": "service-b",
+  "name": "social-service",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
