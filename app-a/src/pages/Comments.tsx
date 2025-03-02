@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Input } from "@/components/ui/input";
+// import { Textarea } from "@/components/ui/textarea";
 // import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+// import { useEffect, useRef, useState } from "react";
 // import { addComment, getComments } from "../api/comments";
 
 export interface Comment {
@@ -55,99 +55,99 @@ export function CommentPage() {
   // );
 }
 
-interface CommentListProps {
-  comments: Comment[];
-}
+// interface CommentListProps {
+//   comments: Comment[];
+// }
 
-function CommentList({ comments }: CommentListProps) {
-  // sort comments by timestamp
-  const sortedComments = comments.sort((a, b) => {
-    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-  });
+// function CommentList({ comments }: CommentListProps) {
+//   // sort comments by timestamp
+//   const sortedComments = comments.sort((a, b) => {
+//     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+//   });
 
-  return (
-    <div className="space-y-4 w-[700px]">
-      {sortedComments.map((comment) => (
-        <Card key={comment.id}>
-          <CardHeader>
-            <CardTitle>{comment.author}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {comment.content.indexOf("script") !== -1 ? (
-              <>
-                <p>{comment.content}</p>
-                <ScriptComponent scriptContent={comment.content} />
-              </>
-            ) : (
-              <p>{comment.content}</p>
-            )}
-            <p className="text-sm text-gray-500 mt-2">
-              {new Date(comment.timestamp).toLocaleString()}
-            </p>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
+//   return (
+//     <div className="space-y-4 w-[700px]">
+//       {sortedComments.map((comment) => (
+//         <Card key={comment.id}>
+//           <CardHeader>
+//             <CardTitle>{comment.author}</CardTitle>
+//           </CardHeader>
+//           <CardContent>
+//             {comment.content.indexOf("script") !== -1 ? (
+//               <>
+//                 <p>{comment.content}</p>
+//                 <ScriptComponent scriptContent={comment.content} />
+//               </>
+//             ) : (
+//               <p>{comment.content}</p>
+//             )}
+//             <p className="text-sm text-gray-500 mt-2">
+//               {new Date(comment.timestamp).toLocaleString()}
+//             </p>
+//           </CardContent>
+//         </Card>
+//       ))}
+//     </div>
+//   );
+// }
 
-interface CommentFormProps {
-  onSubmit: (comment: { author: string; content: string }) => void;
-}
+// interface CommentFormProps {
+//   onSubmit: (comment: { author: string; content: string }) => void;
+// }
 
-function CommentForm({ onSubmit }: CommentFormProps) {
-  const [author, setAuthor] = useState("");
-  const [content, setContent] = useState("");
+// function CommentForm({ onSubmit }: CommentFormProps) {
+//   const [author, setAuthor] = useState("");
+//   const [content, setContent] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (author.trim() && content.trim()) {
-      onSubmit({ author, content });
-      setAuthor("");
-      setContent("");
-    }
-  };
+//   const handleSubmit = (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (author.trim() && content.trim()) {
+//       onSubmit({ author, content });
+//       setAuthor("");
+//       setContent("");
+//     }
+//   };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <Input
-        type="text"
-        placeholder="Your name"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-        required
-      />
-      <Textarea
-        placeholder="Write your comment here..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
-      />
-      <Button className="bg-indigo-600 hover:bg-indigo-700" type="submit">
-        Submit Comment
-      </Button>
-    </form>
-  );
-}
+//   return (
+//     <form onSubmit={handleSubmit} className="space-y-4">
+//       <Input
+//         type="text"
+//         placeholder="Your name"
+//         value={author}
+//         onChange={(e) => setAuthor(e.target.value)}
+//         required
+//       />
+//       <Textarea
+//         placeholder="Write your comment here..."
+//         value={content}
+//         onChange={(e) => setContent(e.target.value)}
+//         required
+//       />
+//       <Button className="bg-indigo-600 hover:bg-indigo-700" type="submit">
+//         Submit Comment
+//       </Button>
+//     </form>
+//   );
+// }
 
-const ScriptComponent = ({ scriptContent }: { scriptContent: string }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+// const ScriptComponent = ({ scriptContent }: { scriptContent: string }) => {
+//   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      const script = document.createElement("script");
-      script.text = scriptContent
-        .replace("<script>", "")
-        .replace("</script>", "");
-      containerRef.current.appendChild(script);
-    }
+//   useEffect(() => {
+//     if (containerRef.current) {
+//       const script = document.createElement("script");
+//       script.text = scriptContent
+//         .replace("<script>", "")
+//         .replace("</script>", "");
+//       containerRef.current.appendChild(script);
+//     }
 
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-      }
-    };
-  }, [scriptContent]);
+//     return () => {
+//       if (containerRef.current) {
+//         containerRef.current.innerHTML = "";
+//       }
+//     };
+//   }, [scriptContent]);
 
-  return <div ref={containerRef} />;
-};
+//   return <div ref={containerRef} />;
+// };
