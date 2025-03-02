@@ -24,6 +24,11 @@ RUN apt-get update -qq && \
 COPY package-lock.json package.json ./
 RUN npm ci --include=dev
 
+ARG API_ENDPOINT
+ENV VITE_API_ENDPOINT=$API_ENDPOINT
+RUN echo "The value of API_ENDPOINT is: $API_ENDPOINT"
+RUN echo "The value of VITE_API_ENDPOINT is: $VITE_API_ENDPOINT"
+
 # Copy application code
 COPY . .
 
@@ -39,11 +44,6 @@ FROM nginx
 
 # Copy built application
 COPY --from=build /app/dist /usr/share/nginx/html
-
-ARG API_ENDPOINT
-ENV VITE_API_ENDPOINT=$API_ENDPOINT
-RUN echo "The value of API_ENDPOINT is: $API_ENDPOINT"
-RUN echo "The value of VITE_API_ENDPOINT is: $VITE_API_ENDPOINT"
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 80
