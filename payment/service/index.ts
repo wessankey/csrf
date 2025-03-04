@@ -11,7 +11,7 @@ app.use(
       "http://localhost:5173",
       "https://wessankey-payment-app.up.railway.app/",
     ],
-    allowMethods: ["POST"],
+    allowMethods: ["POST", "GET"],
     credentials: true,
     allowHeaders: ["Content-Type", "Authorization"],
   })
