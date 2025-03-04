@@ -17,9 +17,7 @@ export const PaymentPage = () => {
 
   const handleSubmit = () => {
     fetch(
-      `${
-        import.meta.env.VITE_API_ENDPOINT
-      }/api/pay?amount=${amount}&recipient=${recipient}`,
+      `https://wessankey-social-service.up.railway.app/api/pay?amount=${amount}&recipient=${recipient}`,
       {
         credentials: "include",
         method: "GET",

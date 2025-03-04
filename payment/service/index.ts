@@ -9,7 +9,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://westonsankey-payment-app.fly.dev",
+      "https://wessankey-payment-app.up.railway.app",
     ],
     allowMethods: ["POST"],
     credentials: true,

@@ -10,7 +10,7 @@ export const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/login`, {
+    fetch(`https://wessankey-social-service.up.railway.app/api/login`, {
       method: "POST",
       body: JSON.stringify({ email: "wes@gmail.com", password: "test" }),
       headers: {
