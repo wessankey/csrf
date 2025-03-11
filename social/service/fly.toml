@@ -1,4 +1,9 @@
-app = 'westonsankey-csrf-social-service'
+# fly.toml app configuration file generated for wessankey-social-service on 2025-03-11T09:53:48Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'wessankey-social-service'
 primary_region = 'atl'
 
 [build]
@@ -6,9 +11,9 @@ primary_region = 'atl'
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = 'off'
+  auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 1
+  min_machines_running = 0
   processes = ['app']
 
 [[vm]]
