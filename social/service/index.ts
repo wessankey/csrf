@@ -28,10 +28,7 @@ const app = new Hono();
 app.use(
   "/*",
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://westonsankey-csrf-social-app.fly.dev",
-    ],
+    origin: ["http://localhost:5173", "https://wessankey-social-app.fly.dev"],
     allowMethods: ["POST", "GET"],
     credentials: true,
   })
