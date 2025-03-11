@@ -53,5 +53,5 @@ export default {
       },
     },
   },
-  plugins: [require("../../payment/app/node_modules/tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate")],
 };
