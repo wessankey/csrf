@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { LoginPage } from "./pages/Login.tsx";
 import { PaymentPage } from "./pages/Pay.tsx";
 import "./index.css";
+import { SuccessPage } from "./pages/Success.tsx";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/payment/success" element={<SuccessPage />} />
       </Routes>
     </BrowserRouter>
   </QueryClientProvider>

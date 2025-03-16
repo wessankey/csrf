@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import { PaymentInput } from "../components/PaymentInput";
+import { useNavigate } from "react-router";
 
 export const PaymentPage = () => {
   const [amount, setAmount] = useState("");
-  const [recipient, setRecipient] = useState("");
+  const [recipient, setRecipient] = useState<string | undefined>(undefined);
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     fetch(
@@ -26,7 +28,11 @@ export const PaymentPage = () => {
       }
     )
       .then((res) => res.json())
-      .then((data) => console.log("log:data:", data));
+      .then(() => {
+        setAmount("");
+        setRecipient(undefined);
+        navigate("/payment/success");
+      });
   };
 
   return (
@@ -44,7 +50,7 @@ export const PaymentPage = () => {
           <div className="mt-4">
             <Label htmlFor="amount">Recipient</Label>
             <div className="mt-2">
-              <Select onValueChange={setRecipient}>
+              <Select onValueChange={setRecipient} value={recipient ?? ""}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a recipient" />
                 </SelectTrigger>
@@ -63,6 +69,7 @@ export const PaymentPage = () => {
             type="submit"
             onClick={handleSubmit}
             className="bg-indigo-600 hover:bg-indigo-700 mt-6 w-full"
+            disabled={!amount || !recipient}
           >
             Pay
           </Button>
