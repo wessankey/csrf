@@ -2,17 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/login`, {
       method: "POST",
-      body: JSON.stringify({ email: "wes@gmail.com", password: "test" }),
+      body: JSON.stringify({ email, password }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -40,12 +44,24 @@ export const LoginPage = () => {
         <CardContent>
           <div>
             <Label htmlFor="email">Email</Label>
-            <Input type="text" id="email" className="mt-2" />
+            <Input
+              type="text"
+              id="email"
+              className="mt-2"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="mt-4">
             <Label htmlFor="password">Password</Label>
-            <Input type="password" id="password" className="mt-2" />
+            <Input
+              type="password"
+              id="password"
+              className="mt-2"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
           <Button
