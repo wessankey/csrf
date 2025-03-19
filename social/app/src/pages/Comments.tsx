@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { addComment, getComments } from "../api/comments";
+import "./Comments.css";
 
 export interface Comment {
   id: number;
@@ -77,7 +78,7 @@ function CommentList({ comments }: CommentListProps) {
                 <ScriptComponent scriptContent={comment.content} />
               </>
             ) : (
-              <p>{comment.content}</p>
+              <p dangerouslySetInnerHTML={{ __html: comment.content }} />
             )}
             <p className="text-sm text-gray-500 mt-2">
               {new Date(comment.timestamp).toLocaleString()}
