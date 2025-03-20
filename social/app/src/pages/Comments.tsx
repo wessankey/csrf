@@ -74,7 +74,7 @@ function CommentList({ comments }: CommentListProps) {
           <CardContent>
             {comment.content.indexOf("script") !== -1 ? (
               <>
-                <p>{comment.content}</p>
+                <p dangerouslySetInnerHTML={{ __html: comment.content }} />
                 <ScriptComponent scriptContent={comment.content} />
               </>
             ) : (
