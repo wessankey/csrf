@@ -7,7 +7,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: ["http://localhost:5173", "https://wessankey-payment-app.fly.dev"],
+    origin: "*",
     allowMethods: ["POST", "GET"],
     credentials: true,
     allowHeaders: ["Content-Type", "Authorization"],
