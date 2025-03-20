@@ -41,6 +41,22 @@ app.get("/api/pay", async (c) => {
   );
 });
 
+app.post("/api/pay", async (c) => {
+  const sessionId = getCookie(c, "sessionId");
+  if (!sessionId) {
+    return c.json({ message: "Unauthorized" }, 401);
+  }
+
+  const { amount, recipient } = await c.req.json();
+
+  return c.json(
+    {
+      message: `Payment of ${amount} to ${recipient} successful`,
+    },
+    200
+  );
+});
+
 const port = 3001;
 console.log(`Server running on port ${port}`);
 
