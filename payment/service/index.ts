@@ -35,7 +35,7 @@ app.get("/api/pay", async (c) => {
 
   return c.json(
     {
-      message: `Payment of ${amount} to ${recipient} successful`,
+      message: `Payment of $${amount} to ${recipient} successful`,
     },
     200
   );
@@ -51,7 +51,7 @@ app.post("/api/pay", async (c) => {
 
   return c.json(
     {
-      message: `Payment of ${amount} to ${recipient} successful`,
+      message: `Payment of $${amount} to ${recipient} successful`,
     },
     200
   );
