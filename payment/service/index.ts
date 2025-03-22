@@ -7,11 +7,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://wessankey-payment-app.fly.dev",
-      "https://wessankey-social-app.fly.dev",
-    ],
+    origin: (origin) => origin,
     allowMethods: ["POST", "GET"],
     credentials: true,
     allowHeaders: ["Content-Type", "Authorization"],
